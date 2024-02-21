@@ -106,6 +106,9 @@ class AmalgationLibSqliteBuilder(build_ext):
         # Increase maximum allowed memory-map size to 1TB
         ext.define_macros.append(("SQLITE_MAX_MMAP_SIZE", str(2**40)))
 
+        # better performance when WAL mode is enabled.
+        ext.define_macros.append(("SQLITE_DEFAULT_WAL_SYNCHRONOUS","1"))
+
         ext.include_dirs.append(self.amalgamation_root)
         ext.sources.append(os.path.join(self.amalgamation_root, "sqlite3.c"))
 
